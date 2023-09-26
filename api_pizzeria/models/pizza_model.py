@@ -10,3 +10,4 @@ class PizzaModel(BaseModel):
     secret_ingredient = models.CharField(verbose_name='Secret ingredient', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='Created date', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Updated date', auto_now_add=True)
+    deleted_at = models.BooleanField(verbose_name='Deleted at', default=False)
