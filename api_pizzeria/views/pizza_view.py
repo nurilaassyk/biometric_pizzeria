@@ -14,6 +14,9 @@ class PizzaListApi(APIView):
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
 
+        class Meta:
+            ref_name = 'PizzaListOutputSerializer'
+
     def get(self, request):
         pizza = pizza_list()
         data = self.OutputSerializer(pizza, many=True).data
@@ -28,11 +31,17 @@ class PizzaCreateApi(APIView):
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
 
+        class Meta:
+            ref_name = 'PizzaCreateOutputSerializer'
+
     class InputSerializer(serializers.Serializer):
         name = serializers.CharField()
         cheese = serializers.CharField()
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
+
+        class Meta:
+            ref_name = 'PizzaCreateInputSerializer'
 
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
@@ -51,6 +60,9 @@ class PizzaDetailApi(APIView):
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
 
+        class Meta:
+            ref_name = 'PizzaDetailOutputSerializer'
+
     def get(self, request, pk):
         pizza = pizza_detail(pk)
         data = self.OutputSerializer(pizza).data
@@ -65,14 +77,17 @@ class PizzaUpdateApi(APIView):
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
 
-        class Meta():
-            ref_name = ''
+        class Meta:
+            ref_name = 'PizzaUpdateOutputSerializer'
 
     class InputSerializer(serializers.Serializer):
         name = serializers.CharField()
         cheese = serializers.CharField()
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
+
+        class Meta:
+            ref_name = 'PizzaUpdateInputSerializer'
 
     def post(self, request, pk):
         serializer = self.InputSerializer(data=request.data)
