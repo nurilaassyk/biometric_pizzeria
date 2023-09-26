@@ -65,6 +65,9 @@ class PizzaUpdateApi(APIView):
         dough = serializers.CharField()
         secret_ingredient = serializers.CharField()
 
+        class Meta():
+            ref_name = ''
+
     class InputSerializer(serializers.Serializer):
         name = serializers.CharField()
         cheese = serializers.CharField()
@@ -79,7 +82,7 @@ class PizzaUpdateApi(APIView):
         dough = serializer.data.get('dough')
         secret_ingredient = serializer.data.get('secret_ingredient')
 
-        pizza = pizza_update(name, cheese,dough, secret_ingredient, pk)
+        pizza = pizza_update(name, cheese, dough, secret_ingredient, pk)
         pizza = pizza_detail(pizza.pk)
         data = self.OutputSerializer(pizza).data
         return Response(data)
