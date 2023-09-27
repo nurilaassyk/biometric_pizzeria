@@ -10,17 +10,18 @@ services:
     env_file:
       - .env
     ports:
-      - "5555:5432"
+      - "5432:5432"
     restart: always
 
   web:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: bash -c 'python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000'
+    command: bash -c 'python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000'
     volumes:
       - web_volume:/home/web
       - logs:/home/logs:rw
+      - static:/home/static
     ports:
       - "8000:8000"
     depends_on:
@@ -34,5 +35,7 @@ services:
 volumes:
   postgres:
   logs:
+    external: true
+  static:
     external: true
   web_volume:

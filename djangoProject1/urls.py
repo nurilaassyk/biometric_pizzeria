@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from api_pizzeria.views.pizza_view import PizzaListApi, PizzaCreateApi, PizzaDetailApi, PizzaUpdateApi, PizzaDeleteApi
 from api_pizzeria.views.pizzeria_view import PizzeriaListApi, PizzeriaCreateApi, PizzeriaDetailApi, PizzeriaUpdateApi, \
-    PizzeriaDeleteApi
+    PizzeriaDeleteApi, PizzeriasPizzaApi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +35,7 @@ urlpatterns = [
     path('pizzeria/', include(
         [
             path('', PizzeriaListApi.as_view(), name='list'),
+            path('<int:pk>/pizza', PizzeriasPizzaApi.as_view(), name='pizza_list'),
             path('create/', PizzeriaCreateApi.as_view(), name='create'),
             path('detail/<int:pk>/', PizzeriaDetailApi.as_view(), name='detail'),
             path('update/<int:pk>/', PizzeriaUpdateApi.as_view(), name='update'),
